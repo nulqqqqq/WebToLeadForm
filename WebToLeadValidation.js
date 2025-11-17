@@ -8,7 +8,6 @@ class WebToLeadForm {
     init() {
         this.form.addEventListener('input', this.validateForm.bind(this));
         this.form.addEventListener('submit', this.handleSubmit.bind(this));
-        
         this.validateForm();
     }
 
@@ -84,18 +83,23 @@ class WebToLeadForm {
     }
 
     async handleSubmit(event) {
-    if (!this.validateForm()) {
-        event.preventDefault();
-        alert('Пожалуйста, заполните все поля правильно и пройдите проверку reCAPTCHA.');
-        return;
+        if (!this.validateForm()) {
+            event.preventDefault();
+            alert('Пожалуйста, заполните все поля правильно и пройдите проверку reCAPTCHA.');
+            return;
+        }
+
+        this.addProductCodeField();
+        this.updateCaptchaTimestamp();
+        
+        this.submitBtn.disabled = true;
+        this.submitBtn.value = 'Отправка...';
+        
+        setTimeout(() => {
+            this.submitBtn.disabled = false;
+            this.submitBtn.value = 'Отправить';
+        }, 5000);
     }
-
-    this.addProductCodeField();
-    
-    this.updateCaptchaTimestamp();
-
-    console.log('Form is valid, allowing native submit');
-}
 
     submitFormProgrammatically() {
         const form = document.getElementById('webToLeadForm');
