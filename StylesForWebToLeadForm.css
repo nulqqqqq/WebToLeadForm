@@ -74,7 +74,6 @@ label {
     color: #c23934;
 }
 
-/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
     .web-to-lead-form {
         margin: 10px;
