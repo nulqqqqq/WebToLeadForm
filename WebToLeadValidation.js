@@ -84,35 +84,18 @@ class WebToLeadForm {
     }
 
     async handleSubmit(event) {
+    if (!this.validateForm()) {
         event.preventDefault();
-        
-        if (!this.validateForm()) {
-            alert('Пожалуйста, заполните все поля правильно и пройдите проверку reCAPTCHA.');
-            return;
-        }
-
-        this.addProductCodeField();
-
-        this.submitBtn.disabled = true;
-        this.submitBtn.value = 'Отправка...';
-
-        try {
-            this.updateCaptchaTimestamp();
-            
-            const formElement = document.getElementById('webToLeadForm');
-            if (formElement && typeof formElement.submit === 'function') {
-                formElement.submit();
-            } else {
-                this.submitFormProgrammatically();
-            }
-            
-        } catch (error) {
-            console.error('Ошибка при отправке формы:', error);
-            alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
-            this.submitBtn.disabled = false;
-            this.submitBtn.value = 'Отправить';
-        }
+        alert('Пожалуйста, заполните все поля правильно и пройдите проверку reCAPTCHA.');
+        return;
     }
+
+    this.addProductCodeField();
+    
+    this.updateCaptchaTimestamp();
+
+    console.log('Form is valid, allowing native submit');
+}
 
     submitFormProgrammatically() {
         const form = document.getElementById('webToLeadForm');
