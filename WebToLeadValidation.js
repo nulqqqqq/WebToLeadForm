@@ -19,7 +19,7 @@ class WebToLeadForm {
             'last_name',
             'email',
             'phone',
-            'product' // Валидируем по ID поля в форме
+            'product' 
         ];
 
         let isValid = true;
@@ -61,7 +61,6 @@ class WebToLeadForm {
                 return emailRegex.test(value);
             
             case 'phone':
-                // Улучшенная валидация для белорусских номеров
                 const phoneRegex = /^[\+]?375[0-9\s\-\(\)]{9,}$/;
                 const cleanPhone = value.replace(/\s|\(|\)|-/g, '');
                 return phoneRegex.test(cleanPhone);
@@ -92,7 +91,6 @@ class WebToLeadForm {
             return;
         }
 
-        // Создаем скрытое поле для product_code перед отправкой
         this.addProductCodeField();
 
         this.submitBtn.disabled = true;
@@ -101,7 +99,6 @@ class WebToLeadForm {
         try {
             this.updateCaptchaTimestamp();
             
-            // Небольшая задержка для гарантии добавления поля
             setTimeout(() => {
                 this.form.submit();
             }, 100);
@@ -115,23 +112,19 @@ class WebToLeadForm {
     }
 
     addProductCodeField() {
-        // Удаляем предыдущее скрытое поле если оно есть
         const existingField = document.querySelector('input[name="product_code"]');
         if (existingField) {
             existingField.remove();
         }
 
-        // Получаем значение из select
         const productSelect = document.getElementById('product');
         const productCode = productSelect.value;
 
-        // Создаем скрытое поле для product_code
         const productCodeField = document.createElement('input');
         productCodeField.type = 'hidden';
         productCodeField.name = 'product_code';
         productCodeField.value = productCode;
 
-        // Добавляем поле в форму
         this.form.appendChild(productCodeField);
     }
 
