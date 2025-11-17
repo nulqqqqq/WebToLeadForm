@@ -19,7 +19,7 @@ class WebToLeadForm {
             'last_name',
             'email',
             'phone',
-            'product_code'
+            'product' // Валидируем по ID поля в форме
         ];
 
         let isValid = true;
@@ -61,10 +61,12 @@ class WebToLeadForm {
                 return emailRegex.test(value);
             
             case 'phone':
-                const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
-                return phoneRegex.test(value.replace(/\s/g, ''));
+                // Улучшенная валидация для белорусских номеров
+                const phoneRegex = /^[\+]?375[0-9\s\-\(\)]{9,}$/;
+                const cleanPhone = value.replace(/\s|\(|\)|-/g, '');
+                return phoneRegex.test(cleanPhone);
             
-            case 'product_code':
+            case 'product':
                 return value !== '';
             
             default:
@@ -90,19 +92,47 @@ class WebToLeadForm {
             return;
         }
 
+        // Создаем скрытое поле для product_code перед отправкой
+        this.addProductCodeField();
+
         this.submitBtn.disabled = true;
         this.submitBtn.value = 'Отправка...';
 
         try {
             this.updateCaptchaTimestamp();
             
-            this.form.submit();
+            // Небольшая задержка для гарантии добавления поля
+            setTimeout(() => {
+                this.form.submit();
+            }, 100);
+            
         } catch (error) {
             console.error('Ошибка при отправке формы:', error);
             alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
             this.submitBtn.disabled = false;
             this.submitBtn.value = 'Отправить';
         }
+    }
+
+    addProductCodeField() {
+        // Удаляем предыдущее скрытое поле если оно есть
+        const existingField = document.querySelector('input[name="product_code"]');
+        if (existingField) {
+            existingField.remove();
+        }
+
+        // Получаем значение из select
+        const productSelect = document.getElementById('product');
+        const productCode = productSelect.value;
+
+        // Создаем скрытое поле для product_code
+        const productCodeField = document.createElement('input');
+        productCodeField.type = 'hidden';
+        productCodeField.name = 'product_code';
+        productCodeField.value = productCode;
+
+        // Добавляем поле в форму
+        this.form.appendChild(productCodeField);
     }
 
     updateCaptchaTimestamp() {
