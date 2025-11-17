@@ -16,10 +16,10 @@ class WebToLeadForm {
         const fields = [
             'company',
             'first_name',
-            'last_name',
+            'last_name', 
             'email',
             'phone',
-            'product' 
+            'product'
         ];
 
         let isValid = true;
@@ -38,7 +38,8 @@ class WebToLeadForm {
             }
         });
 
-        const recaptchaResponse = grecaptcha.getResponse();
+        const recaptchaResponse = window.grecaptcha && window.grecaptcha.getResponse ? window.grecaptcha.getResponse() : '';
+        console.log('reCAPTCHA valid:', !!recaptchaResponse);
         if (!recaptchaResponse) {
             isValid = false;
         }
@@ -61,9 +62,8 @@ class WebToLeadForm {
                 return emailRegex.test(value);
             
             case 'phone':
-                const phoneRegex = /^[\+]?375[0-9\s\-\(\)]{9,}$/;
-                const cleanPhone = value.replace(/\s|\(|\)|-/g, '');
-                return phoneRegex.test(cleanPhone);
+                const cleanPhone = value.replace(/\D/g, '');
+                return cleanPhone.length >= 9;
             
             case 'product':
                 return value !== '';
@@ -99,9 +99,12 @@ class WebToLeadForm {
         try {
             this.updateCaptchaTimestamp();
             
-            setTimeout(() => {
-                this.form.submit();
-            }, 100);
+            const formElement = document.getElementById('webToLeadForm');
+            if (formElement && typeof formElement.submit === 'function') {
+                formElement.submit();
+            } else {
+                this.submitFormProgrammatically();
+            }
             
         } catch (error) {
             console.error('Ошибка при отправке формы:', error);
@@ -109,6 +112,34 @@ class WebToLeadForm {
             this.submitBtn.disabled = false;
             this.submitBtn.value = 'Отправить';
         }
+    }
+
+    submitFormProgrammatically() {
+        const form = document.getElementById('webToLeadForm');
+        if (!form) return;
+
+        const formData = new FormData(form);
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/x-www-form-urlencoded',
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = 'https://nulqqqqq.github.io/WebToLeadForm/';
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
+            this.submitBtn.disabled = false;
+            this.submitBtn.value = 'Отправить';
+        });
     }
 
     addProductCodeField() {
@@ -126,6 +157,8 @@ class WebToLeadForm {
         productCodeField.value = productCode;
 
         this.form.appendChild(productCodeField);
+        
+        console.log('Added product_code field:', productCode);
     }
 
     updateCaptchaTimestamp() {
@@ -139,6 +172,7 @@ class WebToLeadForm {
 }
 
 function recaptchaCallback() {
+    console.log('reCAPTCHA completed');
     const form = document.getElementById('webToLeadForm');
     if (form) {
         form.dispatchEvent(new Event('input'));
