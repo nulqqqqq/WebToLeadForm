@@ -13,111 +13,94 @@
               action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dg5000001Iwo9" 
               method="POST">
 
-            <input type=hidden name='captcha_settings' value='{"keyname":"WebToLeadCapcha","fallback":"true","orgId":"00Dg5000001Iwo9","ts":""}'>
-            <input type=hidden name="oid" value="00Dg5000001Iwo9">
-            <input type=hidden name="retURL" value="https://nulqqqqq.github.io/WebToLeadForm/">
-
+            <input type="hidden" name="captcha_settings" value='{"keyname":"WebToLeadCapcha","fallback":"true","orgId":"00Dg5000001Iwo9","ts":""}'>
+            <input type="hidden" name="oid" value="00Dg5000001Iwo9">
+            <input type="hidden" name="retURL" value="https://nulqqqqq.github.io/WebToLeadForm/thankyou.html">
             
             <div class="form-group">
                 <label for="company" class="required">Название компании</label>
                 <input id="company" maxlength="40" name="company" type="text" class="form-control" placeholder="Введите название компании">
             </div>
 
-            
             <div class="form-group">
                 <label for="first_name" class="required">Имя</label>
                 <input id="first_name" maxlength="40" name="first_name" type="text" class="form-control" placeholder="Введите ваше имя">
             </div>
 
-           
             <div class="form-group">
                 <label for="last_name" class="required">Фамилия</label>
                 <input id="last_name" maxlength="80" name="last_name" type="text" class="form-control" placeholder="Введите вашу фамилию">
             </div>
 
-            
             <div class="form-group">
                 <label for="email" class="required">Email</label>
                 <input id="email" maxlength="80" name="email" type="email" class="form-control" placeholder="Введите ваш email">
             </div>
 
-            
             <div class="form-group">
                 <label for="phone" class="required">Телефон</label>
                 <input id="phone" maxlength="40" name="phone" type="tel" class="form-control" placeholder="+375 (99) 999-99-99">
             </div>
 
-            
             <div class="form-group">
-            <label for="product">Продукт <span class="required">*</span></label>
-            <select id="product" name="product" required>
-                <option value="">Выберите продукт</option>
-                
-                <optgroup label="Renault">
-                    <option value="R001C1">Renault Logan</option>
-                    <option value="R002C2">Renault Logan Stepway</option>
-                    <option value="R003C3">Renault Sandero</option>
-                    <option value="R004C4">Renault Sandero Stepway</option>
-                </optgroup>
-                
-                <optgroup label="Двигатели Renault">
-                    <option value="R005E1">K7M</option>
-                    <option value="R006E2">K4M</option>
-                    <option value="R007E3">H4M</option>
-                </optgroup>
-                
-                <optgroup label="Hyundai/Kia">
-                    <option value="HK001C1">Kia Rio</option>
-                    <option value="HK002C2">Kia Rio X-Line</option>
-                    <option value="HK003C3">Hyundai Accent</option>
-                    <option value="HK004C4">Hyundai Solaris</option>
-                </optgroup>
-                
-                <optgroup label="Двигатели Hyundai/Kia">
-                    <option value="HK005E1">G4LC</option>
-                    <option value="HK006E2">G4FG</option>
-                </optgroup>
-                
-                <optgroup label="Volkswagen Group">
-                    <option value="VAG001C1">Volkswagen Polo Sedan</option>
-                    <option value="VAG002C2">Volkswagen Polo 2021</option>
-                    <option value="VAG003C3">Skoda Rapid</option>
-                </optgroup>
-                
-                <optgroup label="Двигатели Volkswagen Group">
-                    <option value="VAG004E1">CZCA</option>
-                    <option value="VAG005E2">CFW</option>
-                    <option value="VAG006E3">CWVA</option>
-                    <option value="VAG007E4">CFNA</option>
-                    <option value="VAG008E5">CFNB</option>
-                </optgroup>
-                
-                <optgroup label="Lada">
-                    <option value="L001C1">Lada Vesta</option>
-                    <option value="L002C2">Lada Xray</option>
-                </optgroup>
-                
-                <optgroup label="Двигатели Lada">
-                    <option value="L003E1">VAZ-21179</option>
-                    <option value="L004E2">VAZ-21129</option>
-                </optgroup>
-                
-                <optgroup label="Коврики">
-                    <option value="R008A1">Carpets Renault</option>
-                    <option value="HK007A1">Carpets Hyundai</option>
-                    <option value="HK008A2">Carpets Kia</option>
-                    <option value="VAG009A1">Carpets Volkswagen</option>
-                    <option value="VAG010A2">Carpets Skoda</option>
-                    <option value="L005A1">Carpets Lada</option>
-                </optgroup>
-                
-                <optgroup label="Аксессуары">
-                    <option value="MI001A1">Phone holder Xiaomi</option>
-                </optgroup>
-            </select>
-        </div>
+                <label for="product">Продукт <span class="required">*</span></label>
+                <select id="product" name="product" required>
+                    <option value="">Выберите продукт</option>
+                    <optgroup label="Renault">
+                        <option value="R001C1">Renault Logan</option>
+                        <option value="R002C2">Renault Logan Stepway</option>
+                        <option value="R003C3">Renault Sandero</option>
+                        <option value="R004C4">Renault Sandero Stepway</option>
+                    </optgroup>
+                    <optgroup label="Двигатели Renault">
+                        <option value="R005E1">K7M</option>
+                        <option value="R006E2">K4M</option>
+                        <option value="R007E3">H4M</option>
+                    </optgroup>
+                    <optgroup label="Hyundai/Kia">
+                        <option value="HK001C1">Kia Rio</option>
+                        <option value="HK002C2">Kia Rio X-Line</option>
+                        <option value="HK003C3">Hyundai Accent</option>
+                        <option value="HK004C4">Hyundai Solaris</option>
+                    </optgroup>
+                    <optgroup label="Двигатели Hyundai/Kia">
+                        <option value="HK005E1">G4LC</option>
+                        <option value="HK006E2">G4FG</option>
+                    </optgroup>
+                    <optgroup label="Volkswagen Group">
+                        <option value="VAG001C1">Volkswagen Polo Sedan</option>
+                        <option value="VAG002C2">Volkswagen Polo 2021</option>
+                        <option value="VAG003C3">Skoda Rapid</option>
+                    </optgroup>
+                    <optgroup label="Двигатели Volkswagen Group">
+                        <option value="VAG004E1">CZCA</option>
+                        <option value="VAG005E2">CFW</option>
+                        <option value="VAG006E3">CWVA</option>
+                        <option value="VAG007E4">CFNA</option>
+                        <option value="VAG008E5">CFNB</option>
+                    </optgroup>
+                    <optgroup label="Lada">
+                        <option value="L001C1">Lada Vesta</option>
+                        <option value="L002C2">Lada Xray</option>
+                    </optgroup>
+                    <optgroup label="Двигатели Lada">
+                        <option value="L003E1">VAZ-21179</option>
+                        <option value="L004E2">VAZ-21129</option>
+                    </optgroup>
+                    <optgroup label="Коврики">
+                        <option value="R008A1">Carpets Renault</option>
+                        <option value="HK007A1">Carpets Hyundai</option>
+                        <option value="HK008A2">Carpets Kia</option>
+                        <option value="VAG009A1">Carpets Volkswagen</option>
+                        <option value="VAG010A2">Carpets Skoda</option>
+                        <option value="L005A1">Carpets Lada</option>
+                    </optgroup>
+                    <optgroup label="Аксессуары">
+                        <option value="MI001A1">Phone holder Xiaomi</option>
+                    </optgroup>
+                </select>
+            </div>
                                                                         
-            
             <div class="g-recaptcha" 
                  data-sitekey="6LfurwYsAAAAAKIO2E5cb4sVXq32Oi-91IeRtIJf" 
                  data-callback="recaptchaCallback">
