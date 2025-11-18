@@ -83,69 +83,41 @@ class WebToLeadForm {
     }
 
     async handleSubmit(event) {
+        // ВАЖНО: Не отменяем событие по умолчанию, если используем обычную отправку
         if (!this.validateForm()) {
             event.preventDefault();
             alert('Пожалуйста, заполните все поля правильно и пройдите проверку reCAPTCHA.');
             return;
         }
 
-        this.addProductCodeField();
+        // Обновляем поле с кодом продукта
+        this.updateProductCodeField();
         this.updateCaptchaTimestamp();
         
+        // Визуальная обратная связь
         this.submitBtn.disabled = true;
         this.submitBtn.value = 'Отправка...';
         
+        // Salesforce сам сделает редирект на retURL
+        // Не нужно блокировать стандартное поведение формы
+        
+        // Таймаут для сброса кнопки (на случай ошибки)
         setTimeout(() => {
             this.submitBtn.disabled = false;
             this.submitBtn.value = 'Отправить';
-        }, 5000);
+        }, 10000);
     }
 
-    submitFormProgrammatically() {
-        const form = document.getElementById('webToLeadForm');
-        if (!form) return;
-
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/x-www-form-urlencoded',
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.href = 'https://nulqqqqq.github.io/WebToLeadForm/';
-            } else {
-                throw new Error('Network response was not ok');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
-            this.submitBtn.disabled = false;
-            this.submitBtn.value = 'Отправить';
-        });
-    }
-
-    addProductCodeField() {
-        const existingField = document.querySelector('input[name="product_code"]');
-        if (existingField) {
-            existingField.remove();
-        }
-
+    updateProductCodeField() {
         const productSelect = document.getElementById('product');
         const productCode = productSelect.value;
-
-        const productCodeField = document.createElement('input');
-        productCodeField.type = 'hidden';
-        productCodeField.name = 'product_code';
-        productCodeField.value = productCode;
-
-        this.form.appendChild(productCodeField);
         
-        console.log('Added product_code field:', productCode);
+        // Обновляем существующее поле 00Ng5000003vT7a
+        const productCodeField = document.getElementById('product_code_field');
+        if (productCodeField) {
+            productCodeField.value = productCode;
+            console.log('Product code updated:', productCode);
+        }
     }
 
     updateCaptchaTimestamp() {
