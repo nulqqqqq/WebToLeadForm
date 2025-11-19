@@ -3,48 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контактная форма</title>
-    <link rel="stylesheet" href="StylesForWebToLeadForm.css">
+    <title>Контактная форма | Автозапчасти</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
     <div class="web-to-lead-form">
-        <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dg5000001Iwo9" method="POST">
-
+        <div class="form-header">
+            <h1>Запрос на автозапчасти</h1>
+            <p>Заполните форму, и наш менеджер свяжется с вами в ближайшее время</p>
+        </div>
+        
+        <form id="webToLeadForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dg5000001Iwo9" method="POST">
+            <!-- Скрытые поля Salesforce -->
             <input type="hidden" name="captcha_settings" value='{"keyname":"WebToLeadCapcha","fallback":"true","orgId":"00Dg5000001Iwo9","ts":""}'>
             <input type="hidden" name="oid" value="00Dg5000001Iwo9">
             <input type="hidden" name="retURL" value="http://nulqqqqq.github.io/WebToLeadForm/thankyou.html">
-             <input type="hidden" name="00Ng5000003vT7a" id="product_code_field" value="">
-             <input type="hidden" name="lead_source" value="Web Site">
+            <input type="hidden" name="lead_source" value="Web Site">
+            <textarea name="description" id="product_description" style="display:none"></textarea>
 
             <div class="form-group">
                 <label for="company" class="required">Название компании</label>
-                <input id="company" maxlength="40" name="company" type="text" class="form-control" placeholder="Введите название компании">
+                <input id="company" maxlength="40" name="company" type="text" class="form-control" placeholder="Введите название компании" required>
             </div>
 
             <div class="form-group">
                 <label for="first_name" class="required">Имя</label>
-                <input id="first_name" maxlength="40" name="first_name" type="text" class="form-control" placeholder="Введите ваше имя">
+                <input id="first_name" maxlength="40" name="first_name" type="text" class="form-control" placeholder="Введите ваше имя" required>
             </div>
 
             <div class="form-group">
                 <label for="last_name" class="required">Фамилия</label>
-                <input id="last_name" maxlength="80" name="last_name" type="text" class="form-control" placeholder="Введите вашу фамилию">
+                <input id="last_name" maxlength="80" name="last_name" type="text" class="form-control" placeholder="Введите вашу фамилию" required>
             </div>
 
             <div class="form-group">
                 <label for="email" class="required">Email</label>
-                <input id="email" maxlength="80" name="email" type="email" class="form-control" placeholder="Введите ваш email">
+                <input id="email" maxlength="80" name="email" type="email" class="form-control" placeholder="Введите ваш email" required>
             </div>
 
             <div class="form-group">
                 <label for="phone" class="required">Телефон</label>
-                <input id="phone" maxlength="40" name="phone" type="tel" class="form-control" placeholder="+375 (99) 999-99-99">
+                <input id="phone" maxlength="40" name="phone" type="tel" class="form-control" placeholder="+375 (99) 999-99-99" required>
             </div>
 
             <div class="form-group">
                 <label for="product">Продукт <span class="required">*</span></label>
-                <select id="product"  name="product" class="form-control" required>
+                <select id="product" name="product" class="form-control" required>
                     <option value="">Выберите продукт</option>
                     <optgroup label="Renault">
                         <option value="R001C1">Renault Logan</option>
@@ -103,8 +108,16 @@
 
             <div class="g-recaptcha" data-sitekey="6LfurwYsAAAAAKIO2E5cb4sVXq32Oi-91IeRtIJf"></div>
 
-            <input type="submit" name="submit" class="submit-btn" value="Отправить">
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Отправить запрос
+            </button>
         </form>
+        
+        <div class="form-footer">
+            <p>Нажимая кнопку "Отправить запрос", вы соглашаетесь с нашей <a href="#">Политикой конфиденциальности</a></p>
+        </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
