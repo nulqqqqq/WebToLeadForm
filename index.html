@@ -5,221 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Контактная форма | Автозапчасти</title>
     <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="StylesForWebToLeadForm.css">
     <script src="https://www.google.com/recaptcha/api.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: inline-block;
-            width: 120px;
-            font-weight: bold;
-        }
-        input, select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            width: 250px;
-        }
-        .required {
-            color: red;
-        }
-        .submit-btn {
-            background: #0070d2;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .submit-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-    </style>
 </head>
 <body>
-    <h2>Запрос на автозапчасти</h2>
-    
-    <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dg5000001Iwo9" method="POST" id="webToLeadForm">
-
-        <input type=hidden name='captcha_settings' value='{"keyname":"WebToLeadCapcha","fallback":"true","orgId":"00Dg5000001Iwo9","ts":""}'>
-        <input type=hidden name="oid" value="00Dg5000001Iwo9">
-        <input type=hidden name="retURL" value="http://nulqqqqq.github.io/WebToLeadForm/thankyou.html">
-        <input type=hidden name="lead_source" value="Web Site">
+    <div class="container">
+        <h2>Запрос на автозапчасти</h2>
         
-        <!-- Скрытое поле для кода продукта -->
-        <input type="hidden" id="00Ng5000003Yefd" name="00Ng5000003Yefd" value="">
+        <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dg5000001Iwo9" method="POST" id="webToLeadForm">
 
-        <!--  ----------------------------------------------------------------------  -->
-        <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
-        <!--  these lines if you wish to test in debug mode.                          -->
-        <!--  <input type="hidden" name="debug" value=1>                              -->
-        <!--  <input type="hidden" name="debugEmail" value="nulqqqqq@gmail.com">      -->
-        <!--  ----------------------------------------------------------------------  -->
-
-        <div class="form-group">
-            <label for="company">Company <span class="required">*</span></label>
-            <input id="company" maxlength="40" name="company" type="text" required placeholder="Введите название компании" />
-        </div>
-
-        <div class="form-group">
-            <label for="first_name">First Name <span class="required">*</span></label>
-            <input id="first_name" maxlength="40" name="first_name" type="text" required placeholder="Введите ваше имя" />
-        </div>
-
-        <div class="form-group">
-            <label for="last_name">Last Name <span class="required">*</span></label>
-            <input id="last_name" maxlength="80" name="last_name" type="text" required placeholder="Введите вашу фамилию" />
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email <span class="required">*</span></label>
-            <input id="email" maxlength="80" name="email" type="email" required placeholder="Введите ваш email" />
-        </div>
-
-        <div class="form-group">
-            <label for="phone">Phone <span class="required">*</span></label>
-            <input id="phone" maxlength="40" name="phone" type="tel" required placeholder="+375 (29) 123-45-67" />
-        </div>
-
-        <div class="form-group">
-            <label for="product_select">Product <span class="required">*</span></label>
-            <select id="product_select" required style="width: 250px;">
-                <option value="">Выберите продукт</option>
-                <optgroup label="Renault">
-                    <option value="R001C1">Renault Logan</option>
-                    <option value="R002C2">Renault Logan Stepway</option>
-                    <option value="R003C3">Renault Sandero</option>
-                    <option value="R004C4">Renault Sandero Stepway</option>
-                </optgroup>
-                <optgroup label="Двигатели Renault">
-                    <option value="R005E1">K7M</option>
-                    <option value="R006E2">K4M</option>
-                    <option value="R007E3">H4M</option>
-                </optgroup>
-                <optgroup label="Hyundai/Kia">
-                    <option value="HK001C1">Kia Rio</option>
-                    <option value="HK002C2">Kia Rio X-Line</option>
-                    <option value="HK003C3">Hyundai Accent</option>
-                    <option value="HK004C4">Hyundai Solaris</option>
-                </optgroup>
-                <optgroup label="Двигатели Hyundai/Kia">
-                    <option value="HK005E1">G4LC</option>
-                    <option value="HK006E2">G4FG</option>
-                </optgroup>
-                <optgroup label="Volkswagen Group">
-                    <option value="VAG001C1">Volkswagen Polo Sedan</option>
-                    <option value="VAG002C2">Volkswagen Polo 2021</option>
-                    <option value="VAG003C3">Skoda Rapid</option>
-                </optgroup>
-                <optgroup label="Двигатели Volkswagen Group">
-                    <option value="VAG004E1">CZCA</option>
-                    <option value="VAG005E2">CFW</option>
-                    <option value="VAG006E3">CWVA</option>
-                    <option value="VAG007E4">CFNA</option>
-                    <option value="VAG008E5">CFNB</option>
-                </optgroup>
-                <optgroup label="Lada">
-                    <option value="L001C1">Lada Vesta</option>
-                    <option value="L002C2">Lada Xray</option>
-                </optgroup>
-                <optgroup label="Двигатели Lada">
-                    <option value="L003E1">VAZ-21179</option>
-                    <option value="L004E2">VAZ-21129</option>
-                </optgroup>
-                <optgroup label="Коврики">
-                    <option value="R008A1">Carpets Renault</option>
-                    <option value="HK007A1">Carpets Hyundai</option>
-                    <option value="HK008A2">Carpets Kia</option>
-                    <option value="VAG009A1">Carpets Volkswagen</option>
-                    <option value="VAG010A2">Carpets Skoda</option>
-                    <option value="L005A1">Carpets Lada</option>
-                </optgroup>
-                <optgroup label="Аксессуары">
-                    <option value="MI001A1">Phone holder Xiaomi</option>
-                </optgroup>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <div class="g-recaptcha" data-sitekey="6LfurwYsAAAAAKIO2E5cb4sVXq32Oi-91IeRtIJf"></div>
-        </div>
-
-        <input type="submit" name="submit" value="Отправить" class="submit-btn" id="submitBtn">
-
-    </form>
-
-    <script>
-        function timestamp() { 
-            var response = document.getElementById("g-recaptcha-response"); 
-            if (response == null || response.value.trim() == "") {
-                var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
-                elems["ts"] = JSON.stringify(new Date().getTime());
-                document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
-            } 
-        } 
-        
-        setInterval(timestamp, 500);
-
-        // Обновляем поле Product при выборе продукта
-        document.getElementById('product_select').addEventListener('change', function() {
-            const productCode = this.value;
-            document.getElementById('00Ng5000003Yefd').value = productCode;
-            console.log('Product code selected:', productCode);
-        });
-
-        // Валидация формы перед отправкой
-        document.getElementById('webToLeadForm').addEventListener('submit', function(e) {
-            const productField = document.getElementById('00Ng5000003Yefd');
-            const recaptchaResponse = grecaptcha.getResponse();
+            <input type=hidden name='captcha_settings' value='{"keyname":"WebToLeadCapcha","fallback":"true","orgId":"00Dg5000001Iwo9","ts":""}'>
+            <input type=hidden name="oid" value="00Dg5000001Iwo9">
+            <input type=hidden name="retURL" value="http://nulqqqqq.github.io/WebToLeadForm/thankyou.html">
+            <input type=hidden name="lead_source" value="Web Site">
             
-            // Проверяем, выбран ли продукт
-            if (!productField.value) {
-                e.preventDefault();
-                alert('Пожалуйста, выберите продукт');
-                return;
-            }
-            
-            // Проверяем reCAPTCHA
-            if (!recaptchaResponse) {
-                e.preventDefault();
-                alert('Пожалуйста, пройдите проверку reCAPTCHA');
-                return;
-            }
-            
-            // Логируем данные для отладки
-            console.log('=== ОТПРАВКА ФОРМЫ ===');
-            console.log('Company:', document.getElementById('company').value);
-            console.log('First Name:', document.getElementById('first_name').value);
-            console.log('Last Name:', document.getElementById('last_name').value);
-            console.log('Email:', document.getElementById('email').value);
-            console.log('Phone:', document.getElementById('phone').value);
-            console.log('Product (00Ng5000003Yefd):', productField.value);
-            console.log('reCAPTCHA:', !!recaptchaResponse);
-            
-            // Блокируем кнопку отправки
-            document.getElementById('submitBtn').disabled = true;
-            document.getElementById('submitBtn').value = 'Отправка...';
-            
-            // Автоматическое восстановление кнопки через 10 секунд
-            setTimeout(() => {
-                document.getElementById('submitBtn').disabled = false;
-                document.getElementById('submitBtn').value = 'Отправить';
-            }, 10000);
-        });
+            <!-- product code hiden field-->
+            <input type="hidden" id="00Ng5000003Yefd" name="00Ng5000003Yefd" value="">
 
-        // Callback для reCAPTCHA (если нужен)
-        function recaptchaCallback() {
-            console.log('reCAPTCHA пройдена');
-        }
-    </script>
+            <!--  ----------------------------------------------------------------------  -->
+            <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
+            <!--  these lines if you wish to test in debug mode.                          -->
+            <!--  <input type="hidden" name="debug" value=1>                              -->
+            <!--  <input type="hidden" name="debugEmail" value="nulqqqqq@gmail.com">      -->
+            <!--  ----------------------------------------------------------------------  -->
+
+            <div class="form-group">
+                <label for="company">Company <span class="required">*</span></label>
+                <input id="company" maxlength="40" name="company" type="text" required placeholder="Введите название компании" />
+            </div>
+
+            <div class="form-group">
+                <label for="first_name">First Name <span class="required">*</span></label>
+                <input id="first_name" maxlength="40" name="first_name" type="text" required placeholder="Введите ваше имя" />
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name <span class="required">*</span></label>
+                <input id="last_name" maxlength="80" name="last_name" type="text" required placeholder="Введите вашу фамилию" />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input id="email" maxlength="80" name="email" type="email" required placeholder="Введите ваш email" />
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone <span class="required">*</span></label>
+                <input id="phone" maxlength="40" name="phone" type="tel" required placeholder="+375 (29) 123-45-67" />
+            </div>
+
+            <div class="form-group">
+                <label for="product_select">Product <span class="required">*</span></label>
+                <select id="product_select" required>
+                    <option value="">Выберите продукт</option>
+                    <optgroup label="Renault">
+                        <option value="R001C1">Renault Logan</option>
+                        <option value="R002C2">Renault Logan Stepway</option>
+                        <option value="R003C3">Renault Sandero</option>
+                        <option value="R004C4">Renault Sandero Stepway</option>
+                    </optgroup>
+                    <optgroup label="Двигатели Renault">
+                        <option value="R005E1">K7M</option>
+                        <option value="R006E2">K4M</option>
+                        <option value="R007E3">H4M</option>
+                    </optgroup>
+                    <optgroup label="Hyundai/Kia">
+                        <option value="HK001C1">Kia Rio</option>
+                        <option value="HK002C2">Kia Rio X-Line</option>
+                        <option value="HK003C3">Hyundai Accent</option>
+                        <option value="HK004C4">Hyundai Solaris</option>
+                    </optgroup>
+                    <optgroup label="Двигатели Hyundai/Kia">
+                        <option value="HK005E1">G4LC</option>
+                        <option value="HK006E2">G4FG</option>
+                    </optgroup>
+                    <optgroup label="Volkswagen Group">
+                        <option value="VAG001C1">Volkswagen Polo Sedan</option>
+                        <option value="VAG002C2">Volkswagen Polo 2021</option>
+                        <option value="VAG003C3">Skoda Rapid</option>
+                    </optgroup>
+                    <optgroup label="Двигатели Volkswagen Group">
+                        <option value="VAG004E1">CZCA</option>
+                        <option value="VAG005E2">CFW</option>
+                        <option value="VAG006E3">CWVA</option>
+                        <option value="VAG007E4">CFNA</option>
+                        <option value="VAG008E5">CFNB</option>
+                    </optgroup>
+                    <optgroup label="Lada">
+                        <option value="L001C1">Lada Vesta</option>
+                        <option value="L002C2">Lada Xray</option>
+                    </optgroup>
+                    <optgroup label="Двигатели Lada">
+                        <option value="L003E1">VAZ-21179</option>
+                        <option value="L004E2">VAZ-21129</option>
+                    </optgroup>
+                    <optgroup label="Коврики">
+                        <option value="R008A1">Carpets Renault</option>
+                        <option value="HK007A1">Carpets Hyundai</option>
+                        <option value="HK008A2">Carpets Kia</option>
+                        <option value="VAG009A1">Carpets Volkswagen</option>
+                        <option value="VAG010A2">Carpets Skoda</option>
+                        <option value="L005A1">Carpets Lada</option>
+                    </optgroup>
+                    <optgroup label="Аксессуары">
+                        <option value="MI001A1">Phone holder Xiaomi</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LfurwYsAAAAAKIO2E5cb4sVXq32Oi-91IeRtIJf"></div>
+            </div>
+
+            <input type="submit" name="submit" value="Отправить" class="submit-btn" id="submitBtn">
+
+        </form>
+    </div>
+
+    <script src="WebToLeadValidation.js"></script>
 </body>
 </html>

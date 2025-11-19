@@ -1,145 +1,50 @@
-class WebToLeadForm {
-    constructor() {
-        this.form = document.getElementById('webToLeadForm');
-        this.submitBtn = document.getElementById('submitBtn');
-        this.init();
-    }
-
-    init() {
-        this.form.addEventListener('input', this.validateForm.bind(this));
-        this.form.addEventListener('submit', this.handleSubmit.bind(this));
-        this.validateForm();
-    }
-
-    validateForm() {
-        const fields = [
-            'company',
-            'first_name',
-            'last_name', 
-            'email',
-            'phone',
-            'product'
-        ];
-
-        let isValid = true;
-
-        fields.forEach(field => {
-            const element = document.getElementById(field);
-            const errorElement = document.getElementById(field + '_error');
-            
-            if (element) {
-                const fieldValid = this.validateField(field, element.value);
-                this.toggleError(element, errorElement, fieldValid);
-                
-                if (!fieldValid) {
-                    isValid = false;
-                }
-            }
-        });
-
-        const recaptchaResponse = window.grecaptcha && window.grecaptcha.getResponse ? window.grecaptcha.getResponse() : '';
-        console.log('reCAPTCHA valid:', !!recaptchaResponse);
-        if (!recaptchaResponse) {
-            isValid = false;
-        }
-
-        this.submitBtn.disabled = !isValid;
-        return isValid;
-    }
-
-    validateField(fieldName, value) {
-        switch (fieldName) {
-            case 'company':
-                return value.trim().length > 0;
-            
-            case 'first_name':
-            case 'last_name':
-                return value.trim().length >= 2;
-            
-            case 'email':
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(value);
-            
-            case 'phone':
-                const cleanPhone = value.replace(/\D/g, '');
-                return cleanPhone.length >= 9;
-            
-            case 'product':
-                return value !== '';
-            
-            default:
-                return true;
-        }
-    }
-
-    toggleError(element, errorElement, isValid) {
-        if (isValid) {
-            element.classList.remove('error');
-            if (errorElement) errorElement.style.display = 'none';
-        } else {
-            element.classList.add('error');
-            if (errorElement) errorElement.style.display = 'block';
-        }
-    }
-
-    async handleSubmit(event) {
-        if (!this.validateForm()) {
-            event.preventDefault();
-            alert('Пожалуйста, заполните все поля правильно и пройдите проверку reCAPTCHA.');
-            return;
-        }
-
-        this.updateProductCodeField();
-        this.updateCaptchaTimestamp();
-        
-        this.submitBtn.disabled = true;
-        this.submitBtn.value = 'Отправка...';
-        
-        setTimeout(() => {
-            this.submitBtn.disabled = false;
-            this.submitBtn.value = 'Отправить';
-        }, 10000);
-    }
-
-    updateProductCodeField() {
-        const productSelect = document.getElementById('product');
-        const productCode = productSelect.value;
-        
-        const productCodeField = document.getElementById('product_code_field');
-        if (productCodeField) {
-            productCodeField.value = productCode;
-            console.log('Product code updated:', productCode);
-        }
-    }
-
-    updateCaptchaTimestamp() {
-        var response = document.getElementById("g-recaptcha-response"); 
-        if (response == null || response.value.trim() == "") {
-            var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
-            elems["ts"] = JSON.stringify(new Date().getTime());
-            document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
-        }
-    }
-}
-
-function recaptchaCallback() {
-    console.log('reCAPTCHA completed');
-    const form = document.getElementById('webToLeadForm');
-    if (form) {
-        form.dispatchEvent(new Event('input'));
-    }
-}
-
 function timestamp() { 
-    var response = document.getElementById("g-recaptcha-response"); 
-    if (response == null || response.value.trim() == "") {
-        var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
-        elems["ts"] = JSON.stringify(new Date().getTime());
-        document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+    const response = document.getElementById("g-recaptcha-response"); 
+    if (response == null || response.value.trim() === "") {
+        const captchaSettings = document.getElementsByName("captcha_settings")[0];
+        if (captchaSettings) {
+            try {
+                const elems = JSON.parse(captchaSettings.value);
+                elems["ts"] = JSON.stringify(new Date().getTime());
+                captchaSettings.value = JSON.stringify(elems);
+            } catch (error) {
+                console.error('Error updating captcha timestamp:', error);
+            }
+        }
     } 
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    new WebToLeadForm();
     setInterval(timestamp, 500);
+    
+    const productSelect = document.getElementById('product_select');
+    const productField = document.getElementById('00Ng5000003Yefd');
+    const form = document.getElementById('webToLeadForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (productSelect && productField) {
+        productSelect.addEventListener('change', function() {
+            const productCode = this.value;
+            productField.value = productCode;
+            console.log('Product code selected:', productCode);
+        });
+    }
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (!productField || !productField.value) {
+                e.preventDefault();
+                alert('Пожалуйста, выберите продукт');
+                return;
+            }
+            
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                e.preventDefault();
+                alert('Пожалуйста, пройдите проверку reCAPTCHA');
+                return;
+            }
+            
+        });
+    }
 });
