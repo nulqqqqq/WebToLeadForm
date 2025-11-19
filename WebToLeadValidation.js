@@ -83,25 +83,18 @@ class WebToLeadForm {
     }
 
     async handleSubmit(event) {
-        // ВАЖНО: Не отменяем событие по умолчанию, если используем обычную отправку
         if (!this.validateForm()) {
             event.preventDefault();
             alert('Пожалуйста, заполните все поля правильно и пройдите проверку reCAPTCHA.');
             return;
         }
 
-        // Обновляем поле с кодом продукта
         this.updateProductCodeField();
         this.updateCaptchaTimestamp();
         
-        // Визуальная обратная связь
         this.submitBtn.disabled = true;
         this.submitBtn.value = 'Отправка...';
         
-        // Salesforce сам сделает редирект на retURL
-        // Не нужно блокировать стандартное поведение формы
-        
-        // Таймаут для сброса кнопки (на случай ошибки)
         setTimeout(() => {
             this.submitBtn.disabled = false;
             this.submitBtn.value = 'Отправить';
@@ -112,7 +105,6 @@ class WebToLeadForm {
         const productSelect = document.getElementById('product');
         const productCode = productSelect.value;
         
-        // Обновляем существующее поле 00Ng5000003vT7a
         const productCodeField = document.getElementById('product_code_field');
         if (productCodeField) {
             productCodeField.value = productCode;
