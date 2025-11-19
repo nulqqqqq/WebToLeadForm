@@ -4,108 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Контактная форма | Автозапчасти</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .web-to-lead-form {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .required {
+            color: red;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #007cba;
+        }
+        
+        .submit-btn {
+            background: #007cba;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: #005a87;
+        }
+        
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .error {
+            border-color: red !important;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="web-to-lead-form">
         <div class="form-header">
             <h1>Запрос на автозапчасти</h1>
-            <p>Заполните форму, и наш менеджер свяжется с вами в ближайшее время</p>
+            <p>Заполните форму для получения консультации</p>
         </div>
         
-        <form id="webToLeadForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dg5000001Iwo9" method="POST">
-            <input type="hidden" name="captcha_settings" value='{"keyname":"WebToLeadCapcha","fallback":"true","orgId":"00Dg5000001Iwo9","ts":""}'>
+        <!-- Упрощенная форма БЕЗ reCAPTCHA для тестирования -->
+        <form id="webToLeadForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+            <!-- Обязательные поля Salesforce -->
             <input type="hidden" name="oid" value="00Dg5000001Iwo9">
             <input type="hidden" name="retURL" value="http://nulqqqqq.github.io/WebToLeadForm/thankyou.html">
             <input type="hidden" name="lead_source" value="Web Site">
-            <textarea name="description" id="product_description" style="display:none"></textarea>
+            
+            <!-- Поле для информации о продукте -->
+            <input type="hidden" name="description" id="product_description">
 
             <div class="form-group">
-                <label for="company" class="required">Название компании</label>
+                <label for="company" class="required">Название компании *</label>
                 <input id="company" maxlength="40" name="company" type="text" class="form-control" placeholder="Введите название компании" required>
+                <div class="error-message" id="company_error">Обязательное поле</div>
             </div>
 
             <div class="form-group">
-                <label for="first_name" class="required">Имя</label>
+                <label for="first_name" class="required">Имя *</label>
                 <input id="first_name" maxlength="40" name="first_name" type="text" class="form-control" placeholder="Введите ваше имя" required>
+                <div class="error-message" id="first_name_error">Обязательное поле</div>
             </div>
 
             <div class="form-group">
-                <label for="last_name" class="required">Фамилия</label>
+                <label for="last_name" class="required">Фамилия *</label>
                 <input id="last_name" maxlength="80" name="last_name" type="text" class="form-control" placeholder="Введите вашу фамилию" required>
+                <div class="error-message" id="last_name_error">Обязательное поле</div>
             </div>
 
             <div class="form-group">
-                <label for="email" class="required">Email</label>
+                <label for="email" class="required">Email *</label>
                 <input id="email" maxlength="80" name="email" type="email" class="form-control" placeholder="Введите ваш email" required>
+                <div class="error-message" id="email_error">Введите корректный email</div>
             </div>
 
             <div class="form-group">
-                <label for="phone" class="required">Телефон</label>
-                <input id="phone" maxlength="40" name="phone" type="tel" class="form-control" placeholder="+375 (99) 999-99-99" required>
+                <label for="phone" class="required">Телефон *</label>
+                <input id="phone" maxlength="40" name="phone" type="tel" class="form-control" placeholder="+375 (29) 123-45-67" required>
+                <div class="error-message" id="phone_error">Введите корректный телефон</div>
             </div>
 
             <div class="form-group">
-                <label for="product">Продукт <span class="required">*</span></label>
+                <label for="product" class="required">Продукт *</label>
                 <select id="product" name="product" class="form-control" required>
                     <option value="">Выберите продукт</option>
                     <optgroup label="Renault">
                         <option value="R001C1">Renault Logan</option>
                         <option value="R002C2">Renault Logan Stepway</option>
                         <option value="R003C3">Renault Sandero</option>
-                        <option value="R004C4">Renault Sandero Stepway</option>
-                    </optgroup>
-                    <optgroup label="Двигатели Renault">
-                        <option value="R005E1">K7M</option>
-                        <option value="R006E2">K4M</option>
-                        <option value="R007E3">H4M</option>
                     </optgroup>
                     <optgroup label="Hyundai/Kia">
                         <option value="HK001C1">Kia Rio</option>
-                        <option value="HK002C2">Kia Rio X-Line</option>
-                        <option value="HK003C3">Hyundai Accent</option>
-                        <option value="HK004C4">Hyundai Solaris</option>
-                    </optgroup>
-                    <optgroup label="Двигатели Hyundai/Kia">
-                        <option value="HK005E1">G4LC</option>
-                        <option value="HK006E2">G4FG</option>
-                    </optgroup>
-                    <optgroup label="Volkswagen Group">
-                        <option value="VAG001C1">Volkswagen Polo Sedan</option>
-                        <option value="VAG002C2">Volkswagen Polo 2021</option>
-                        <option value="VAG003C3">Skoda Rapid</option>
-                    </optgroup>
-                    <optgroup label="Двигатели Volkswagen Group">
-                        <option value="VAG004E1">CZCA</option>
-                        <option value="VAG005E2">CFW</option>
-                        <option value="VAG006E3">CWVA</option>
-                        <option value="VAG007E4">CFNA</option>
-                        <option value="VAG008E5">CFNB</option>
-                    </optgroup>
-                    <optgroup label="Lada">
-                        <option value="L001C1">Lada Vesta</option>
-                        <option value="L002C2">Lada Xray</option>
-                    </optgroup>
-                    <optgroup label="Двигатели Lada">
-                        <option value="L003E1">VAZ-21179</option>
-                        <option value="L004E2">VAZ-21129</option>
-                    </optgroup>
-                    <optgroup label="Коврики">
-                        <option value="R008A1">Carpets Renault</option>
-                        <option value="HK007A1">Carpets Hyundai</option>
-                        <option value="HK008A2">Carpets Kia</option>
-                        <option value="VAG009A1">Carpets Volkswagen</option>
-                        <option value="VAG010A2">Carpets Skoda</option>
-                        <option value="L005A1">Carpets Lada</option>
-                    </optgroup>
-                    <optgroup label="Аксессуары">
-                        <option value="MI001A1">Phone holder Xiaomi</option>
+                        <option value="HK003C3">Hyundai Solaris</option>
                     </optgroup>
                 </select>
+                <div class="error-message" id="product_error">Выберите продукт</div>
             </div>
-
-            <div class="g-recaptcha" data-sitekey="6LfurwYsAAAAAKIO2E5cb4sVXq32Oi-91IeRtIJf"></div>
 
             <button type="submit" class="submit-btn" id="submitBtn">
                 Отправить запрос
@@ -113,10 +178,74 @@
         </form>
         
         <div class="form-footer">
-            <p>Нажимая кнопку "Отправить запрос", вы соглашаетесь с нашей <a href="#">Политикой конфиденциальности</a></p>
+            <p>* - обязательные для заполнения поля</p>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Простой JavaScript для обновления поля description
+        document.getElementById('product').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const productName = selectedOption.text;
+            const productCode = selectedOption.value;
+            
+            document.getElementById('product_description').value = 
+                `Запрошенный продукт: ${productName} (Код: ${productCode})`;
+        });
+
+        // Базовая валидация формы
+        document.getElementById('webToLeadForm').addEventListener('submit', function(e) {
+            let isValid = true;
+            
+            // Проверяем обязательные поля
+            const requiredFields = ['company', 'first_name', 'last_name', 'email', 'phone', 'product'];
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                const errorElement = document.getElementById(field + '_error');
+                
+                if (!element.value.trim()) {
+                    element.classList.add('error');
+                    errorElement.style.display = 'block';
+                    isValid = false;
+                } else {
+                    element.classList.remove('error');
+                    errorElement.style.display = 'none';
+                }
+            });
+            
+            // Проверка email
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('email_error');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email.value && !emailRegex.test(email.value)) {
+                email.classList.add('error');
+                emailError.textContent = 'Введите корректный email';
+                emailError.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('Пожалуйста, заполните все обязательные поля правильно.');
+                return;
+            }
+            
+            // Обновляем описание перед отправкой
+            const productSelect = document.getElementById('product');
+            const selectedOption = productSelect.options[productSelect.selectedIndex];
+            if (selectedOption.value) {
+                document.getElementById('product_description').value = 
+                    `Запрошенный продукт: ${selectedOption.text} (Код: ${selectedOption.value})`;
+            }
+            
+            // Показываем, что форма отправляется
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').textContent = 'Отправка...';
+            
+            console.log('Форма отправляется...');
+            console.log('Описание продукта:', document.getElementById('product_description').value);
+        });
+    </script>
 </body>
 </html>
