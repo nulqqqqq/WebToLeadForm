@@ -34,14 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             if (!productField || !productField.value) {
                 e.preventDefault();
-                alert('Пожалуйста, выберите продукт');
+                alert('Please select the product');
                 return;
             }
             
             const recaptchaResponse = grecaptcha.getResponse();
             if (!recaptchaResponse) {
                 e.preventDefault();
-                alert('Пожалуйста, пройдите проверку reCAPTCHA');
+                alert('Please pass the reCAPTCHA check.');
                 return;
             }
             

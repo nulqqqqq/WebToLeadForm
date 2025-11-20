@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контактная форма | Автозапчасти</title>
+    <title>Contact Form | Auto Parts</title>
     <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
     <link rel="stylesheet" href="StylesForWebToLeadForm.css">
     <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2>Запрос на автозапчасти</h2>
+        <h2>Request for auto parts</h2>
         
         <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dg5000001Iwo9" method="POST" id="webToLeadForm">
 
@@ -31,22 +31,22 @@
 
             <div class="form-group">
                 <label for="company">Company <span class="required">*</span></label>
-                <input id="company" maxlength="40" name="company" type="text" required placeholder="Введите название компании" />
+                <input id="company" maxlength="40" name="company" type="text" required placeholder="Enter the company name" />
             </div>
 
             <div class="form-group">
                 <label for="first_name">First Name <span class="required">*</span></label>
-                <input id="first_name" maxlength="40" name="first_name" type="text" required placeholder="Введите ваше имя" />
+                <input id="first_name" maxlength="40" name="first_name" type="text" required placeholder="Enter your name" pattern="[a-zA-Z]*"/>
             </div>
 
             <div class="form-group">
                 <label for="last_name">Last Name <span class="required">*</span></label>
-                <input id="last_name" maxlength="80" name="last_name" type="text" required placeholder="Введите вашу фамилию" />
+                <input id="last_name" maxlength="80" name="last_name" type="text" required placeholder="Enter your last name" pattern="[a-zA-Z]*"/>
             </div>
 
             <div class="form-group">
                 <label for="email">Email <span class="required">*</span></label>
-                <input id="email" maxlength="80" name="email" type="email" required placeholder="Введите ваш email" />
+                <input id="email" maxlength="80" name="email" type="email" required placeholder="Enter your email address" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com"/>
             </div>
 
             <div class="form-group">
@@ -57,14 +57,14 @@
             <div class="form-group">
                 <label for="product_select">Product <span class="required">*</span></label>
                 <select id="product_select" required>
-                    <option value="">Выберите продукт</option>
+                    <option value="">Select a product</option>
                     <optgroup label="Renault">
                         <option value="R001C1">Renault Logan</option>
                         <option value="R002C2">Renault Logan Stepway</option>
                         <option value="R003C3">Renault Sandero</option>
                         <option value="R004C4">Renault Sandero Stepway</option>
                     </optgroup>
-                    <optgroup label="Двигатели Renault">
+                    <optgroup label="Renault engines">
                         <option value="R005E1">K7M</option>
                         <option value="R006E2">K4M</option>
                         <option value="R007E3">H4M</option>
@@ -75,7 +75,7 @@
                         <option value="HK003C3">Hyundai Accent</option>
                         <option value="HK004C4">Hyundai Solaris</option>
                     </optgroup>
-                    <optgroup label="Двигатели Hyundai/Kia">
+                    <optgroup label="Hyundai/Kia engines">
                         <option value="HK005E1">G4LC</option>
                         <option value="HK006E2">G4FG</option>
                     </optgroup>
@@ -84,7 +84,7 @@
                         <option value="VAG002C2">Volkswagen Polo 2021</option>
                         <option value="VAG003C3">Skoda Rapid</option>
                     </optgroup>
-                    <optgroup label="Двигатели Volkswagen Group">
+                    <optgroup label="Volkswagen Group Engines">
                         <option value="VAG004E1">CZCA</option>
                         <option value="VAG005E2">CFW</option>
                         <option value="VAG006E3">CWVA</option>
@@ -95,11 +95,11 @@
                         <option value="L001C1">Lada Vesta</option>
                         <option value="L002C2">Lada Xray</option>
                     </optgroup>
-                    <optgroup label="Двигатели Lada">
+                    <optgroup label="Lada engines">
                         <option value="L003E1">VAZ-21179</option>
                         <option value="L004E2">VAZ-21129</option>
                     </optgroup>
-                    <optgroup label="Коврики">
+                    <optgroup label="Floor mats">
                         <option value="R008A1">Carpets Renault</option>
                         <option value="HK007A1">Carpets Hyundai</option>
                         <option value="HK008A2">Carpets Kia</option>
@@ -107,7 +107,7 @@
                         <option value="VAG010A2">Carpets Skoda</option>
                         <option value="L005A1">Carpets Lada</option>
                     </optgroup>
-                    <optgroup label="Аксессуары">
+                    <optgroup label="Accessories">
                         <option value="MI001A1">Phone holder Xiaomi</option>
                     </optgroup>
                 </select>
