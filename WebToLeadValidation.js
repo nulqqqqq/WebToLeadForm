@@ -5,7 +5,6 @@ function timestamp() {
             const elems = JSON.parse(captchaSettings.value);
             elems["ts"] = new Date().getTime(); 
             captchaSettings.value = JSON.stringify(elems);
-            console.log('Captcha settings timestamp successfully updated.');
         } catch (error) {
             console.error('Error updating captcha timestamp:', error);
         }
@@ -32,13 +31,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (form) {
         form.addEventListener('submit', function(e) {
-
-            timestamp();
-
+            
             if (!form.checkValidity()) {
-                console.log("Native validation failed.");
+                console.log("Native validation failed. Aborting JS logic.");
                 return;
             }
+            
+            timestamp();
+            
             if (!productField || !productField.value) {
                 e.preventDefault();
                 alert('Please select the product');
@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Please pass the reCAPTCHA check.');
                 return;
             }
+            
             console.log("All checks have been completed. The form will be sent.");
         });
     }
