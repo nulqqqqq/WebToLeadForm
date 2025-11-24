@@ -1,16 +1,18 @@
 function timestamp() { 
-    const captchaSettings = document.getElementsByName("captcha_settings")[0];
-    if (captchaSettings) {
-        try {
-            const elems = JSON.parse(captchaSettings.value);
-            elems["ts"] = new Date().getTime(); 
-            captchaSettings.value = JSON.stringify(elems);
-        } catch (error) {
-            console.error('Error updating captcha timestamp:', error);
+    const response = document.getElementById("g-recaptcha-response"); 
+    if (response == null || response.value.trim() === "") {
+        const captchaSettings = document.getElementsByName("captcha_settings")[0];
+        if (captchaSettings) {
+            try {
+                const elems = JSON.parse(captchaSettings.value);
+                elems["ts"] = JSON.stringify(new Date().getTime());
+                captchaSettings.value = JSON.stringify(elems);
+            } catch (error) {
+                console.error('Error updating captcha timestamp:', error);
+            }
         }
     } 
 }
-
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -31,24 +33,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (form) {
         form.addEventListener('submit', function(e) {
-            
-            timestamp();
-            
-            const productField = document.getElementById('00Ng5000003Yefd');
-            
-            if (!productField || !productField.value) {
-                e.preventDefault();
-                alert('Please select the product');
-                return;
-            }
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (!recaptchaResponse) {
-                e.preventDefault();
-                alert('Please pass the reCAPTCHA check.');
-                return;
-            }
-            
-            console.log("All checks have been completed. The form will be sent.");
-        });
+        e.preventDefault();       
+        timestamp();
+
+    if (!form.checkValidity()) {
+        console.log("Native validation failed.");
+        form.reportValidity(); 
+        return;
+    }
+
+    if (!productField || !productField.value) {
+        alert('Please select the product');
+        return;
+    }
+
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+        alert('Please pass the reCAPTCHA check.');
+        return;
+    }
+
+        console.log("All checks have been completed. The form will be sent.");
+        form.submit();              
+    });
     }
 });
