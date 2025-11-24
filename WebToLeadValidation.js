@@ -17,8 +17,7 @@ function timestamp() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    setInterval(timestamp, 500);
-    
+        
     const productSelect = document.getElementById('product_select');
     const productField = document.getElementById('00Ng5000003Yefd');
     const form = document.getElementById('webToLeadForm');
