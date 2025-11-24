@@ -31,12 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (form) {
         form.addEventListener('submit', function(e) {
-            
-            if (!form.checkValidity()) {
-                console.log("Native validation failed. Aborting JS logic.");
-                return;
-            }
-            
+ы
             timestamp();
             
             if (!productField || !productField.value) {
