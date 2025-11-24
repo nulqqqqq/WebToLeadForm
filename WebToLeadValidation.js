@@ -1,5 +1,3 @@
-// WebToLeadValidation.js
-
 function timestamp() { 
     const response = document.getElementById("g-recaptcha-response"); 
     if (response == null || response.value.trim() === "") {
@@ -17,7 +15,7 @@ function timestamp() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-        
+
     const productSelect = document.getElementById('product_select');
     const productField = document.getElementById('00Ng5000003Yefd');
     const form = document.getElementById('webToLeadForm');
