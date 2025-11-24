@@ -1,18 +1,17 @@
 function timestamp() { 
-    const response = document.getElementById("g-recaptcha-response"); 
-    if (response == null || response.value.trim() === "") {
-        const captchaSettings = document.getElementsByName("captcha_settings")[0];
-        if (captchaSettings) {
-            try {
-                const elems = JSON.parse(captchaSettings.value);
-                elems["ts"] = JSON.stringify(new Date().getTime());
-                captchaSettings.value = JSON.stringify(elems);
-            } catch (error) {
-                console.error('Error updating captcha timestamp:', error);
-            }
+    const captchaSettings = document.getElementsByName("captcha_settings")[0];
+    if (captchaSettings) {
+        try {
+            const elems = JSON.parse(captchaSettings.value);
+            elems["ts"] = new Date().getTime(); 
+            captchaSettings.value = JSON.stringify(elems);
+            console.log('Captcha settings timestamp successfully updated.');
+        } catch (error) {
+            console.error('Error updating captcha timestamp:', error);
         }
     } 
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -33,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (form) {
         form.addEventListener('submit', function(e) {
-            
+
             timestamp();
 
             if (!form.checkValidity()) {
