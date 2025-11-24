@@ -33,28 +33,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (form) {
         form.addEventListener('submit', function(e) {
-        e.preventDefault();       
-        timestamp();
+            
+            timestamp();
 
-    if (!form.checkValidity()) {
-        console.log("Native validation failed.");
-        form.reportValidity(); 
-        return;
-    }
-
-    if (!productField || !productField.value) {
-        alert('Please select the product');
-        return;
-    }
-
-    const recaptchaResponse = grecaptcha.getResponse();
-    if (!recaptchaResponse) {
-        alert('Please pass the reCAPTCHA check.');
-        return;
-    }
-
-        console.log("All checks have been completed. The form will be sent.");
-        form.submit();              
-    });
+            if (!form.checkValidity()) {
+                console.log("Native validation failed.");
+                return;
+            }
+            if (!productField || !productField.value) {
+                e.preventDefault();
+                alert('Please select the product');
+                return;
+            }
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                e.preventDefault();
+                alert('Please pass the reCAPTCHA check.');
+                return;
+            }
+            console.log("All checks have been completed. The form will be sent.");
+        });
     }
 });
