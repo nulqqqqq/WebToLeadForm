@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const productSelect = document.getElementById('product_select');
     const productField = document.getElementById('00Ng5000003Yefd');
     const form = document.getElementById('webToLeadForm');
-    
+
+
     if (productSelect && productField) {
         productField.value = productSelect.value;
         
@@ -32,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (form) {
         form.addEventListener('submit', function(e) {
+            
+            timestamp();
 
             if (!form.checkValidity()) {
                 console.log("Native validation failed.");
