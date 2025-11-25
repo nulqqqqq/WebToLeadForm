@@ -40,11 +40,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("Native validation failed.");
                 return;
             }
-            if (!productField || !productField.value) {
+            /*if (!productField || !productField.value) {
                 e.preventDefault();
                 alert('Please select the product');
                 return;
-            }
+            }*/
             const recaptchaResponse = grecaptcha.getResponse();
             if (!recaptchaResponse) {
                 e.preventDefault();
