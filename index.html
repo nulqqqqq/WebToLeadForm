@@ -6,7 +6,7 @@
     <title>Contact Form | Auto Parts</title>
     <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
     <link rel="stylesheet" href="StylesForWebToLeadForm.css">
-   <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
     <div class="container">
@@ -19,8 +19,8 @@
             <input type=hidden name="retURL" value="http://nulqqqqq.github.io/WebToLeadForm/thankyou.html">
             <input type=hidden name="lead_source" value="Web Site">
             
-            <!-- product code hiden field-->
             <input type="hidden" id="00Ng5000003Yefd" name="00Ng5000003Yefd" value="">
+            
 
             <!--  ----------------------------------------------------------------------  -->
             <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
@@ -29,6 +29,8 @@
             <!--  <input type="hidden" name="debugEmail" value="nulqqqqq@gmail.com">      -->
             <!--  ----------------------------------------------------------------------  -->
 
+            <input type="hidden" name="debug" value="1">
+            <input type="hidden" name="debugEmail" value="nulqqqqq@gmail.com">
             <div class="form-group">
                 <label for="company">Company <span class="required">*</span></label>
                 <input 
@@ -147,6 +149,6 @@
         </form>
     </div>
 
-        <script src="WebToLeadValidation.js"></script> 
+    <script src="WebToLeadValidation.js"></script> 
 </body>
 </html>

@@ -1,16 +1,13 @@
 function timestamp() { 
-    const response = document.getElementById("g-recaptcha-response"); 
+    const captchaSettings = document.getElementsByName("captcha_settings")[0];
     
-    if (response == null || response.value.trim() === "") {
-        const captchaSettings = document.getElementsByName("captcha_settings")[0];
-        if (captchaSettings) {
-            try {
-                const elems = JSON.parse(captchaSettings.value);
-                elems["ts"] = new Date().getTime().toString(); 
-                captchaSettings.value = JSON.stringify(elems);
-            } catch (error) {
-                console.error('Error updating captcha timestamp:', error);
-            }
+    if (captchaSettings) {
+        try {
+            const elems = JSON.parse(captchaSettings.value);
+            elems["ts"] = new Date().getTime().toString(); 
+            captchaSettings.value = JSON.stringify(elems);
+        } catch (error) {
+            console.error('Error updating captcha timestamp:', error);
         }
     } 
 }
@@ -18,9 +15,8 @@ function timestamp() {
 document.addEventListener('DOMContentLoaded', function() {
 
     const productSelect = document.getElementById('product_select');
-    const productField = document.getElementById('00Ng5000003Yefd'); 
+    const productField = document.getElementById('00Ng5000003Yefd');
     const form = document.getElementById('webToLeadForm');
-
 
     if (productSelect && productField) {
         productField.value = productSelect.value;
@@ -37,25 +33,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!form.checkValidity()) {
                 console.log("Native validation failed.");
-                return; 
+                return;
             }
-            
             const recaptchaResponse = grecaptcha.getResponse();
             if (!recaptchaResponse) {
                 e.preventDefault();
                 alert('Please pass the reCAPTCHA check.');
-                console.log("reCAPTCHA check failed.");
                 return;
             }
-
+            
             timestamp(); 
-            if (!productField || !productField.value) {
-                e.preventDefault();
-                alert('Please select the product');
-                console.log("Product selection failed.");
-                return;
-            }
-
+            
             console.log("All checks have been completed. The form will be sent.");
         });
     }
